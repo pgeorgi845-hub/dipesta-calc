@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4f6fb">
+  <meta name="description" content="Dipesta Calculator: бърз касов калкулатор за евро с история на последните 50 сметки.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Dipesta">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232548ed'/%3E%3Cpath d='M21 17h10c12 0 19 6 19 15s-7 15-19 15H21V17zm9 8v14h2c6 0 9-2 9-7s-3-7-9-7h-2z' fill='white'/%3E%3C/svg%3E">
+  <title>Dipesta Calculator</title>
+  <style>
+    :root{color-scheme:light;--bg:#f4f6fb;--surface:#fff;--text:#19223b;--muted:#667089;--line:#dce2ed;--blue:#2548ed;--blue-soft:#edf1ff;--green:#075a39;--green-bg:#e1f5e9;--amber:#7c4205;--amber-bg:#fff0d5;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;border:0;color:inherit}button:disabled{cursor:default;opacity:.42}button:focus-visible,summary:focus-visible{outline:3px solid #738aff;outline-offset:3px}button:not(:disabled):active{transform:scale(.97)}svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}h1,h2,h3,p{margin:0}[hidden]{display:none!important}.app{max-width:460px;margin:auto;padding:calc(12px + env(safe-area-inset-top)) 16px calc(86px + env(safe-area-inset-bottom))}.header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.brand{display:flex;align-items:center;gap:11px}.monogram{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:var(--blue);color:#fff;font-size:30px;font-weight:800;letter-spacing:-2px;box-shadow:0 5px 13px #2548ed22}.brand h1{font-size:19px;letter-spacing:-.5px;font-weight:780}.brand p{font-size:12px;color:var(--muted);margin-top:1px;letter-spacing:1.1px}.icon-btn{display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);height:44px;width:44px;border-radius:14px}.screen-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.eyebrow{font-size:12px;letter-spacing:1.2px;font-weight:720;color:var(--muted);text-transform:uppercase}.status-badge{font-size:12px;font-weight:650;color:var(--green);background:#dff0e7;border-radius:6px;padding:4px 7px}.status-badge.warning{color:var(--amber);background:var(--amber-bg)}.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}.amount-field{width:100%;min-width:0;text-align:left;padding:12px 13px;border:1.5px solid var(--line);border-radius:16px;background:var(--surface);position:relative;transition:border-color .12s,background .12s}.amount-field.active{border-color:var(--blue);background:var(--blue-soft);box-shadow:0 0 0 1px var(--blue)}.field-label{display:block;font-size:14px;font-weight:620;margin-bottom:8px;color:var(--muted)}.amount-field.active .field-label{color:var(--blue)}.field-number{display:flex;align-items:baseline;gap:6px;font-size:clamp(22px,6.2vw,31px);font-weight:740;letter-spacing:-.8px;font-variant-numeric:tabular-nums}.field-number .empty{color:#8c96aa}.field-number small{font-size:18px;font-weight:500;color:var(--muted);letter-spacing:0}.field-value{min-width:0;overflow-wrap:anywhere}.extra-card{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:10px 12px;margin-bottom:12px}.extra-top{display:flex;align-items:stretch;gap:10px}.extra-card .amount-field{border:1px solid transparent;background:var(--bg);padding:8px 10px;flex:1;border-radius:11px}.extra-card .amount-field.active{background:var(--blue-soft);border-color:var(--blue)}.extra-card .field-label{margin-bottom:3px;font-size:13px}.extra-card .field-number{font-size:22px}.add-btn{display:flex;align-items:center;justify-content:center;gap:5px;border-radius:11px;background:var(--blue);color:white;font-size:14px;font-weight:680;padding:0 13px;min-height:50px}.add-btn svg{width:17px}.extra-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px;min-height:27px;font-size:12px;color:var(--muted)}.undo{background:transparent;color:var(--blue);font-size:12px;font-weight:650;display:flex;align-items:center;gap:4px;padding:7px 0 7px 8px;min-height:32px}.undo svg{width:15px;height:15px}.change-card{padding:17px 18px 13px;border-radius:19px;background:var(--green-bg);color:var(--green);margin-bottom:12px;position:relative;min-height:132px}.change-card.empty{background:#e9edf5;color:#69738a}.change-card.short{background:var(--amber-bg);color:var(--amber)}.result-heading{display:flex;justify-content:space-between;align-items:center;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:730}.result-heading svg{width:20px;height:20px}.result-amount{font-size:clamp(36px,12vw,58px);font-weight:790;letter-spacing:-2px;line-height:1.17;font-variant-numeric:tabular-nums;margin:6px 0 7px;overflow-wrap:anywhere}.result-amount small{font-size:.48em;font-weight:550;letter-spacing:0;margin-left:5px}.total-line{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px}.total-line strong{font-weight:700;font-variant-numeric:tabular-nums}.breakdown{margin-top:10px;border-top:1px solid #075a3925;padding-top:9px;font-size:13px}.breakdown summary{cursor:pointer;min-height:26px;line-height:26px}.breakdown-list{display:flex;flex-wrap:wrap;gap:6px;padding:7px 0 1px}.chip{background:#ffffffa0;border:1px solid #075a391b;padding:7px 9px;border-radius:8px;font-size:13px;font-weight:620}.breakdown-note{font-size:12px;line-height:1.5;margin-top:7px}.keypad-heading{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px}.keypad-heading strong{font-weight:650;color:var(--blue)}.keypad{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.9fr);gap:7px}.key{background:var(--surface);border:1px solid #e0e5ef;border-radius:12px;min-height:52px;font-size:26px;font-weight:560;box-shadow:0 2px 0 #19223b05;display:flex;align-items:center;justify-content:center;user-select:none}.key.tool{background:#e8edf6;font-size:17px;color:#516080}.key.next{grid-row:span 2;background:var(--blue);color:#fff;flex-direction:column;gap:9px;font-size:12px;font-weight:680;line-height:1.25}.key.next svg{width:25px;height:25px}.key.zeroes{font-size:22px}.finish{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;background:var(--text);color:white;min-height:53px;font-size:16px;font-weight:680;margin-top:12px;padding:12px}.finish:disabled{background:#e0e5ef;color:#5b677f;opacity:1}.finish svg{width:19px;height:19px}.discard{width:100%;background:transparent;color:var(--muted);font-size:12px;padding:12px;min-height:40px}.notice{border:1px solid #e2b560;background:var(--amber-bg);color:var(--amber);padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.5;margin-bottom:12px}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,460px);display:grid;grid-template-columns:1fr 1fr;background:#fffffff5;border-top:1px solid var(--line);padding:7px 16px calc(7px + env(safe-area-inset-bottom));backdrop-filter:blur(16px);z-index:10}.nav button{display:flex;align-items:center;justify-content:center;gap:9px;background:transparent;color:var(--muted);border-radius:11px;padding:12px;min-height:46px;font-size:14px;font-weight:650}.nav button.active{background:var(--blue-soft);color:var(--blue)}.nav svg{width:19px;height:19px}.counter{font-size:11px;background:#dce4ff;border-radius:5px;padding:2px 5px;color:var(--blue);font-variant-numeric:tabular-nums}.history-title{font-size:25px;letter-spacing:-.7px;margin:6px 0}.history-caption{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:19px}.history-day{font-size:12px;font-weight:730;color:var(--muted);letter-spacing:.7px;text-transform:uppercase;margin:19px 0 8px}.history-record{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:8px}.record-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.record-top time{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}.record-change{font-size:20px;font-weight:770;letter-spacing:-.5px;color:var(--green);font-variant-numeric:tabular-nums}.record-label{font-size:11px;color:var(--green);letter-spacing:.6px;text-transform:uppercase}.record-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding-top:13px;margin-top:10px;border-top:1px solid #edf0f7;font-size:12px;color:var(--muted)}.record-values strong{display:block;color:var(--text);font-size:14px;font-weight:640;margin-top:4px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.empty-history{text-align:center;border:1px dashed #cbd4e4;border-radius:18px;padding:37px 19px;margin-top:24px}.empty-history svg{height:34px;width:34px;color:#8895ad;margin-bottom:14px}.empty-history h3{font-size:17px;margin-bottom:7px}.empty-history p{font-size:14px;line-height:1.6;color:var(--muted)}.history-foot{font-size:12px;color:var(--muted);line-height:1.6;margin-top:20px}.toast{position:fixed;bottom:calc(82px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);background:#19223bf5;color:#fff;box-shadow:0 8px 30px #19223b25;padding:12px 16px;border-radius:13px;font-size:14px;line-height:1.5;z-index:30;pointer-events:none}.dialog{border:0;border-radius:24px;background:var(--surface);color:var(--text);padding:24px;width:calc(100% - 32px);max-width:430px;box-shadow:0 20px 80px #0003}.dialog::backdrop{background:#101b3866;backdrop-filter:blur(3px)}.dialog h2{font-size:22px;letter-spacing:-.4px;margin-bottom:17px}.dialog p{font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:14px}.dialog ol{font-size:14px;line-height:1.8;padding-left:21px;margin:8px 0 17px}.dialog h3{font-size:15px;margin:17px 0 7px}.dialog .close-btn{display:block;width:100%;background:var(--blue);color:#fff;border-radius:12px;min-height:48px;font-weight:650}.dialog .cancel-btn{display:block;width:100%;background:var(--bg);border-radius:12px;min-height:48px;font-weight:650;margin-top:8px}.dialog .danger-btn{background:#a62d38;color:white}.dialog .version{font-size:12px;color:var(--muted);margin:16px 0}.install-btn{display:block;width:100%;background:var(--blue-soft);color:var(--blue);border-radius:10px;min-height:44px;margin:10px 0;font-weight:650}noscript{display:block;padding:30px;font-size:17px} @media (min-width:700px){body{background:#e9edf5}.app{margin:26px auto 0;border:1px solid #dce2ed;border-radius:26px 26px 0 0;background:var(--bg);padding-top:19px;min-height:calc(100dvh - 26px)}.nav{border-left:1px solid var(--line);border-right:1px solid var(--line)}.key{min-height:55px}}@media (max-width:350px){.app{padding-left:12px;padding-right:12px}.key{min-height:48px}.brand h1{font-size:18px}.amount-field{padding:10px}.add-btn{padding:0 10px}.total-line{font-size:12px}}@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+    .header{margin-bottom:13px}.brand p{display:flex;align-items:center;gap:7px;letter-spacing:.8px}.brand .status-badge{font-size:10px;letter-spacing:0;padding:2px 5px}.amount-field{padding:10px 12px}.field-label{margin-bottom:6px}.extra-card{padding:9px 10px;margin-bottom:10px}.extra-bottom{margin-top:3px;min-height:25px}.extra-card .field-label{font-size:12px}.extra-card .field-number{font-size:20px}.extra-card .amount-field{padding:7px 9px}.undo{min-height:30px;padding-top:6px;padding-bottom:6px}.change-card{padding:11px 16px 14px;min-height:129px;margin-bottom:10px}.result-heading{min-height:28px}.result-amount{margin:2px 0 5px;font-size:clamp(35px,12vw,56px)}.breakdown-open{display:flex;align-items:center;gap:5px;background:transparent;color:var(--green);font-size:12px;font-weight:650;text-transform:none;letter-spacing:0;min-height:30px;padding:4px 0 4px 8px}.breakdown-open svg{width:16px;height:16px}.keypad-heading{margin-bottom:6px}.key{min-height:50px}.finish{margin-top:10px;min-height:51px}.discard{padding:10px;min-height:36px}.dialog .chip{border:1px solid #c7d7cc;background:var(--green-bg);color:var(--green);padding:12px 14px;font-size:16px}.keypad-heading{gap:8px}.keypad-heading>span{white-space:nowrap}@media(max-height:760px){.header{margin-bottom:10px}.key{min-height:46px}.change-card{min-height:119px}.result-amount{font-size:48px}.app{padding-top:calc(9px + env(safe-area-inset-top))}}
+  </style>
+</head>
+<body>
+<noscript>Разреши JavaScript, за да използваш Dipesta Calculator.</noscript>
+<div class="app">
+  <header class="header"><div class="brand"><span class="monogram" aria-hidden="true">D</span><div><h1>Dipesta Calculator</h1><p>ЕВРО <span id="offlineStatus" class="status-badge" hidden>Готово за офлайн</span></p></div></div><button id="help" class="icon-btn" type="button" aria-label="Помощ и инсталиране"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></svg></button></header>
+  <div id="storageWarning" class="notice" role="alert" hidden></div>
+  <main>
+    <section id="calcView" aria-label="Калкулатор">
+      <div class="fields">
+        <button id="billField" class="amount-field active" type="button" data-field="bill" aria-pressed="true"><span class="field-label">Сметка</span><span class="field-number"><span id="billValue" class="field-value empty">0,00</span><small>€</small></span></button>
+        <button id="paidField" class="amount-field" type="button" data-field="paid" aria-pressed="false"><span class="field-label">Клиентът даде</span><span class="field-number"><span id="paidValue" class="field-value empty">0,00</span><small>€</small></span></button>
+      </div>
+      <div class="extra-card"><div class="extra-top"><button id="extraField" class="amount-field" type="button" data-field="extra" aria-pressed="false"><span class="field-label">Клиентът даде още</span><span class="field-number"><span id="extraValue" class="field-value empty">0,00</span><small>€</small></span></button><button id="add" class="add-btn" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Добави</button></div><div class="extra-bottom"><span id="extrasTotal">Добавени: 0,00 €</span><button id="undo" class="undo" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 4 10l5 5M4 10h9a6 6 0 0 1 0 12"/></svg>Отмени</button></div></div>
+      <section id="result" class="change-card empty" aria-live="polite" aria-atomic="true"><div class="result-heading"><span id="resultLabel">Въведи сумите</span><button id="breakdown" class="breakdown-open" type="button" hidden>Разбивка<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12M6 12h12M6 17h7"/></svg></button></div><div id="change" class="result-amount">0,00<small>€</small></div><div class="total-line"><span>Общо получени</span><strong id="totalPaid">0,00 €</strong></div></section>
+      <div class="keypad-heading"><span>Поле: <strong id="activeLabel">Сметка</strong></span><span id="entryHint">До 2 десетични цифри</span></div>
+      <div id="keypad" class="keypad" aria-label="Цифрова клавиатура">
+        <button class="key" type="button" data-key="1">1</button><button class="key" type="button" data-key="2">2</button><button class="key" type="button" data-key="3">3</button><button class="key tool" type="button" data-key="back" aria-label="Изтрий последната цифра"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5-7 7 7 7h12V5H9ZM12 9l5 6M17 9l-5 6"/></svg></button>
+        <button class="key" type="button" data-key="4">4</button><button class="key" type="button" data-key="5">5</button><button class="key" type="button" data-key="6">6</button><button class="key tool" type="button" data-key="clear" aria-label="Изчисти избраното поле">C</button>
+        <button class="key" type="button" data-key="7">7</button><button class="key" type="button" data-key="8">8</button><button class="key" type="button" data-key="9">9</button><button id="next" class="key next" type="button" data-key="next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span id="nextLabel">Дадени</span></button>
+        <button class="key" type="button" data-key="," aria-label="Десетична запетая">,</button><button class="key" type="button" data-key="0">0</button><button class="key zeroes" type="button" data-key="00">00</button>
+      </div>
+      <button id="finish" class="finish" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg><span id="finishLabel">Приключи и запази</span></button>
+      <button id="discard" class="discard" type="button">Изчисти без запис</button>
+    </section>
+    <section id="historyView" aria-label="История" hidden><h2 class="history-title">История</h2><p class="history-caption">Последните <strong>50 сметки</strong>, с най-новите отгоре.</p><div id="historyList"></div><p id="historyFoot" class="history-foot"></p></section>
+  </main>
+</div>
+<nav class="nav" aria-label="Основна навигация"><button id="calcTab" type="button" class="active" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8 7h8M8 12h1M12 12h1M16 12h.01M8 16h1M12 16h1M16 16h.01"/></svg>Калкулатор</button><button id="historyTab" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.7 7M3 4v7h7M12 7v5l3 2"/></svg>История<span id="historyCount" class="counter">0/50</span></button></nav>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="breakdownDialog" class="dialog" aria-labelledby="breakdownTitle"><h2 id="breakdownTitle">Върни с</h2><div id="breakdownList" class="breakdown-list"></div><p style="margin-top:16px">Предложението не отчита наличността в касата.</p><button id="closeBreakdown" type="button" class="close-btn">Разбрах</button></dialog>
+<dialog id="helpDialog" class="dialog" aria-labelledby="helpTitle"><h2 id="helpTitle">Dipesta Calculator</h2><h3>Бърза работа с касата</h3><p>Въведи сметката, натисни „Дадени“ и въведи получената сума. За допълнителни пари избери „Клиентът даде още“, въведи сумата и натисни „Добави“. Рестото се обновява веднага.</p><p>„Приключи и запази“ записва сметката и отваря следващата. Докосни попълнено поле, за да въведеш нова стойност вместо старата.</p><h3>На началния екран на iPhone</h3><ol><li>Отвори публикувания GitHub Pages адрес в Safari.</li><li>Избери Share, после Add to Home Screen.</li><li>Отвори приложението от новата икона.</li></ol><button id="install" class="install-btn" type="button" hidden>Инсталирай приложението</button><p id="offlineHelp">За офлайн работа качи всички файлове от пакета и отвори страницата поне веднъж с интернет. Изчакай „Готово за офлайн“.</p><h3>Историята</h3><p>Сметките се пазят на това устройство в този браузър. Изчистването на данните на сайта ги премахва. Датата и часът са по настройките на устройството.</p><p class="version">Версия 2.0 · EUR</p><button id="closeHelp" type="button" class="close-btn">Разбрах</button></dialog>
+<dialog id="discardDialog" class="dialog" aria-labelledby="discardTitle"><h2 id="discardTitle">Да изчистя текущата сметка?</h2><p>Въведените суми няма да се запазят в историята.</p><button id="confirmDiscard" type="button" class="close-btn danger-btn">Изчисти сметката</button><button id="cancelDiscard" type="button" class="cancel-btn">Продължи с нея</button></dialog>
+<script>
+'use strict';
+(() => {
+  const LIMIT = 50, MAX = 99999999;
+  const $ = id => document.getElementById(id);
+  const fields = {bill:'Сметка',paid:'Клиентът даде',extra:'Клиентът даде още'};
+  const rootPath = new URL('.',location.href).pathname;
+  const KEY = 'dipesta-calculator:'+rootPath+':v2';
+  const LEGACY_KEY = 'cash-calculator-eur-v1';
+  let draft = {bill:'',paid:'',extra:'',additions:[]};
+  let history = [], active = 'bill', replaceNext = false, storageOK = true, toastTimer, installing;
+  const euros = new Intl.NumberFormat('bg-BG',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const money = c => euros.format(c/100)+' €';
+  const isCents = c => Number.isSafeInteger(c)&&c>=0&&c<=MAX;
+  function parseCents(value) {
+    const s = String(value).trim();
+    if (!/^\d{1,6}(?:[.,]\d{0,2})?$/.test(s)) return null;
+    const [whole,fraction=''] = s.replace(',','.').split('.');
+    const c = Number(whole)*100+Number(fraction.padEnd(2,'0'));
+    return isCents(c)?c:null;
+  }
+  function totals() {
+    const bill = parseCents(draft.bill), initial = parseCents(draft.paid);
+    const extra = draft.additions.reduce((a,c)=>a+c,0);
+    const paid = initial===null?null:initial+extra;
+    return {bill,initial,extra,paid,valid:bill!==null&&bill>0&&paid!==null&&isCents(paid)};
+  }
+  function splitChange(c) {
+    const out=[];
+    for (const d of [50000,20000,10000,5000,2000,1000,500,200,100,50,20,10,5,2,1]) {
+      const count=Math.floor(c/d);if(count){out.push({cents:d,count});c-=d*count;}
+    }
+    return out;
+  }
+  function readRecords(value) {
+    if(!Array.isArray(value))return [];
+    return value.filter(r=>r&&isCents(r.bill)&&r.bill>0&&isCents(r.paid)&&r.paid>=r.bill&&typeof r.at==='string'&&Number.isFinite(Date.parse(r.at))).map((r,i)=>({id:typeof r.id==='string'?r.id:'old-'+r.at+'-'+r.bill+'-'+r.paid+'-'+i,bill:r.bill,paid:r.paid,extra:isCents(r.extra)&&r.extra<=r.paid?r.extra:0,at:r.at})).slice(0,LIMIT);
+  }
+  function mergeRecords(a,b) {
+    const seen=new Set();
+    return [...a,...b].filter(r=>{if(seen.has(r.id))return false;seen.add(r.id);return true;}).sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)).slice(0,LIMIT);
+  }
+  function storageWarning() {
+    $('storageWarning').hidden=storageOK;
+    $('storageWarning').textContent='Запазването е блокирано. Историята остава само за тази сесия и може да се изгуби при затваряне.';
+  }
+  function readStore() {
+    const raw=localStorage.getItem(KEY);if(!raw)return null;
+    const value=JSON.parse(raw);return value&&typeof value==='object'?value:null;
+  }
+  function persist() {
+    try {
+      let latest;try{latest=readStore();}catch(e){latest=null;}
+      if(latest)history=mergeRecords(history,readRecords(latest.history));
+      localStorage.setItem(KEY,JSON.stringify({version:2,history,draft}));
+      storageOK=true;
+    } catch(e) {storageOK=false;}
+    storageWarning();
+    return storageOK;
+  }
+  function load() {
+    try {
+      let data=readStore();
+      if(!data){const old=localStorage.getItem(LEGACY_KEY);if(old)data=JSON.parse(old);}
+      if(data&&typeof data==='object') {
+        history=readRecords(data.history);
+        const d=data.draft;
+        if(d&&typeof d==='object'){
+          for(const k of ['bill','paid','extra'])draft[k]=typeof d[k]==='string'&&(/^\d{1,6}([.,]\d{0,2})?$/.test(d[k])||d[k]==='')?d[k].replace('.',','):'';
+          draft.additions=Array.isArray(d.additions)?d.additions.filter(c=>isCents(c)&&c>0).slice(0,100):[];
+          if(draft.additions.reduce((a,c)=>a+c,0)>MAX)draft.additions=[];
+        }
+      }
+    }catch(e){storageOK=false;}
+  }
+  function toast(message) {
+    clearTimeout(toastTimer);$('toast').textContent=message;$('toast').hidden=false;
+    toastTimer=setTimeout(()=>{$('toast').hidden=true;},3000);
+  }
+  function selectField(name,replace=true) {
+    active=name;replaceNext=replace&&draft[name]!=='';render();
+  }
+  function render() {
+    for(const name of Object.keys(fields)){
+      const button=$(name+'Field'),value=$(name+'Value');
+      button.classList.toggle('active',name===active);button.setAttribute('aria-pressed',String(name===active));
+      value.textContent=draft[name]||'0,00';value.classList.toggle('empty',draft[name]==='');
+      button.setAttribute('aria-label',fields[name]+': '+(draft[name]||'0,00')+' евро. Избери за въвеждане.');
+    }
+    const t=totals(),pending=draft.extra!=='';
+    $('activeLabel').textContent=active==='paid'?'Дадени':active==='extra'?'Още':'Сметка';$('entryHint').textContent=replaceNext?'Заменяш сумата':'До 2 десетични цифри';
+    $('nextLabel').textContent=active==='bill'?'Дадени':active==='paid'?'Още':'Добави';
+    $('next').setAttribute('aria-label',active==='bill'?'Премини към получената сума':active==='paid'?'Премини към допълнителната сума':'Добави допълнителната сума');
+    $('add').disabled=parseCents(draft.extra)===null||parseCents(draft.extra)<=0||t.initial===null;
+    $('undo').disabled=draft.additions.length===0;
+    $('extrasTotal').textContent='Добавени: '+money(t.extra);
+    $('totalPaid').textContent=money(t.paid===null?t.extra:t.paid);
+    const diff=t.valid?t.paid-t.bill:0;
+    $('result').className='change-card'+(!t.valid?' empty':diff<0?' short':'');
+    $('resultLabel').textContent=!t.valid?(t.bill===0?'Сметката трябва да е над 0':'Въведи сумите'):diff<0?'Не достигат':diff===0?'Точно платено':'Върни ресто';
+    if(t.paid!==null&&!isCents(t.paid))$('resultLabel').textContent='Получената сума е твърде голяма';
+    const amount=euros.format(Math.abs(diff)/100);$('change').replaceChildren(document.createTextNode(amount));const euro=document.createElement('small');euro.textContent='€';$('change').append(euro);
+    $('breakdown').hidden=!t.valid||diff<=0;$('breakdownTitle').textContent='Ресто: '+money(Math.max(diff,0));
+    $('breakdownList').replaceChildren();
+    if(t.valid&&diff>0)for(const p of splitChange(diff)){const chip=document.createElement('span');chip.className='chip';chip.textContent=(p.count>1?p.count+' × ':'')+(p.cents>=100?money(p.cents):p.cents+' ц.');$('breakdownList').append(chip);}
+    $('finish').disabled=!t.valid||diff<0||pending;
+    $('finishLabel').textContent=pending?'Първо добави сумата „Още“':'Приключи и запази';
+    $('historyCount').textContent=history.length+'/50';
+    storageWarning();
+  }
+  function inputKey(key) {
+    if(key==='next'){advance();return;}
+    if(key==='clear')draft[active]='';
+    else if(key==='back')draft[active]=replaceNext?'':draft[active].slice(0,-1);
+    else {
+      let value=replaceNext?'':draft[active];
+      if(key===','){
+        if(value.includes(','))return;
+        value=(value||'0')+',';
+      }else{
+        for(const digit of key){
+          let candidate=value+digit;
+          if(!value.includes(','))candidate=candidate.replace(/^0+(?=\d)/,'');
+          if(!/^\d{1,6}(?:,\d{0,2})?$/.test(candidate)){toast('Максимум 6 цифри и 2 след запетаята.');break;}
+          value=candidate;
+        }
+      }
+      draft[active]=value;
+    }
+    replaceNext=false;persist();render();
+  }
+  function advance() {
+    if(active==='bill'){
+      if(parseCents(draft.bill)===null||parseCents(draft.bill)<=0){toast('Въведи сметка над 0 €.');return;}
+      selectField('paid');
+    }else if(active==='paid'){
+      if(parseCents(draft.paid)===null){toast('Въведи получената сума.');return;}
+      selectField('extra');
+    }else addExtra();
+  }
+  function addExtra() {
+    const amount=parseCents(draft.extra),t=totals();
+    if(amount===null||amount<=0){toast('Въведи допълнителна сума над 0 €.');return;}
+    if(t.initial===null){toast('Първо въведи първоначално получената сума.');selectField('paid');return;}
+    if(t.paid+amount>MAX){toast('Общо получените пари надвишават 999 999,99 €.');return;}
+    if(draft.additions.length>=100){toast('Достигнат е лимитът от 100 добавяния за тази сметка.');return;}
+    draft.additions.push(amount);draft.extra='';active='extra';replaceNext=false;persist();render();toast('Добавени '+money(amount));
+  }
+  function renderHistory() {
+    const container=$('historyList');container.replaceChildren();
+    if(!history.length){const empty=document.createElement('div');empty.className='empty-history';const h=document.createElement('h3');h.textContent='Още няма запазени сметки';const p=document.createElement('p');p.textContent='Приключи първата сметка и тя ще се появи тук с дата и час.';empty.append(h,p);container.append(empty);}
+    let day='';
+    for(const r of history){
+      const date=new Date(r.at),dayKey=date.toLocaleDateString('bg-BG');
+      if(dayKey!==day){const heading=document.createElement('h3');heading.className='history-day';heading.textContent=date.toLocaleDateString('bg-BG',{day:'2-digit',month:'long',year:'numeric'});container.append(heading);day=dayKey;}
+      const record=document.createElement('article');record.className='history-record';
+      const top=document.createElement('div');top.className='record-top';
+      const time=document.createElement('time');time.dateTime=r.at;time.textContent=date.toLocaleTimeString('bg-BG',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+      const result=document.createElement('div');const label=document.createElement('div');label.className='record-label';label.textContent='Ресто';const value=document.createElement('div');value.className='record-change';value.textContent=money(r.paid-r.bill);result.append(label,value);top.append(time,result);
+      const amounts=document.createElement('div');amounts.className='record-values';
+      for(const [name,cents] of [['Сметка',r.bill],['Получени',r.paid],['От тях още',r.extra]]){const cell=document.createElement('div');cell.textContent=name;const value=document.createElement('strong');value.textContent=money(cents);cell.append(value);amounts.append(cell);}
+      record.append(top,amounts);container.append(record);
+    }
+    $('historyFoot').textContent=history.length+' от 50 запазени сметки. При 51-ва сметка най-старата отпада. Дата и час: '+Intl.DateTimeFormat().resolvedOptions().timeZone+'.';
+  }
+  function showView(view) {
+    const calc=view==='calc';$('calcView').hidden=!calc;$('historyView').hidden=calc;
+    $('calcTab').classList.toggle('active',calc);$('historyTab').classList.toggle('active',!calc);
+    $(calc?'calcTab':'historyTab').setAttribute('aria-current','page');$(calc?'historyTab':'calcTab').removeAttribute('aria-current');
+    if(!calc)renderHistory();window.scrollTo({top:0});
+  }
+  function finish() {
+    const t=totals();if(!t.valid||t.paid<t.bill||draft.extra!=='')return;
+    const record={id:typeof crypto.randomUUID==='function'?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2),bill:t.bill,paid:t.paid,extra:t.extra,at:new Date().toISOString()};
+    history=mergeRecords([record],history);draft={bill:'',paid:'',extra:'',additions:[]};active='bill';replaceNext=false;$('breakdownDialog').close();
+    const saved=persist();render();renderHistory();toast(saved?'Запазено. Готово за следващия клиент.':'Приключено само за тази сесия. Запазването е блокирано.');
+  }
+  for(const name of Object.keys(fields))$(name+'Field').addEventListener('click',()=>selectField(name));
+  $('keypad').addEventListener('click',e=>{const key=e.target.closest('button[data-key]');if(key)inputKey(key.dataset.key);});
+  $('add').addEventListener('click',addExtra);
+  $('undo').addEventListener('click',()=>{const value=draft.additions.pop();if(value){persist();render();toast('Отменени '+money(value));}});
+  $('finish').addEventListener('click',finish);
+  $('discard').addEventListener('click',()=>{if(draft.bill||draft.paid||draft.extra||draft.additions.length)$('discardDialog').showModal();});
+  $('confirmDiscard').addEventListener('click',()=>{draft={bill:'',paid:'',extra:'',additions:[]};active='bill';replaceNext=false;persist();render();$('discardDialog').close();toast('Сметката е изчистена без запис.');});
+  $('cancelDiscard').addEventListener('click',()=>$('discardDialog').close());
+  $('calcTab').addEventListener('click',()=>showView('calc'));$('historyTab').addEventListener('click',()=>showView('history'));
+  $('breakdown').addEventListener('click',()=>$('breakdownDialog').showModal());$('closeBreakdown').addEventListener('click',()=>$('breakdownDialog').close());
+  $('help').addEventListener('click',()=>$('helpDialog').showModal());$('closeHelp').addEventListener('click',()=>$('helpDialog').close());
+  document.addEventListener('keydown',e=>{
+    if($('calcView').hidden||$('helpDialog').open||$('discardDialog').open||$('breakdownDialog').open||e.ctrlKey||e.metaKey||e.altKey)return;
+    if(/^\d$/.test(e.key)){e.preventDefault();inputKey(e.key);}
+    else if(e.key===','||e.key==='.'){e.preventDefault();inputKey(',');}
+    else if(e.key==='Backspace'){e.preventDefault();inputKey('back');}
+    else if(e.key==='Delete'){e.preventDefault();inputKey('clear');}
+    else if(e.key==='Enter'&&(e.target===document.body||e.target.closest('[data-field]')||e.target.closest('#keypad'))){e.preventDefault();advance();}
+  });
+  document.addEventListener('paste',e=>{
+    if($('calcView').hidden||$('helpDialog').open||$('discardDialog').open||$('breakdownDialog').open)return;
+    const value=e.clipboardData.getData('text').trim().replace(/\s/g,'').replace('.',',');
+    if(parseCents(value)!==null){e.preventDefault();draft[active]=value;replaceNext=false;persist();render();}else toast('Постави положителна сума с до 2 цифри след запетаята.');
+  });
+  window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{history=mergeRecords(history,readRecords(JSON.parse(e.newValue).history));render();if(!$('historyView').hidden)renderHistory();}catch(err){}}});
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installing=e;$('install').hidden=false;});
+  $('install').addEventListener('click',async()=>{if(!installing)return;await installing.prompt();installing=null;$('install').hidden=true;});
+  window.addEventListener('appinstalled',()=>{$('install').hidden=true;toast('Dipesta Calculator е инсталиран.');});
+  load();render();renderHistory();persist();
+  if(draft.bill||draft.paid||draft.extra||draft.additions.length)toast('Недовършената сметка е възстановена.');
+  if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){
+    navigator.serviceWorker.register('./sw.js',{scope:'./'}).then(()=>navigator.serviceWorker.ready).then(()=>{$('offlineStatus').hidden=false;$('offlineHelp').textContent='Готово за офлайн. Следващите отваряния ще работят и без интернет, докато браузърът пази данните на приложението.';}).catch(()=>{$('offlineStatus').hidden=false;$('offlineStatus').textContent='Онлайн версия';$('offlineStatus').classList.add('warning');});
+  }
+})();
+</script>
+</body>
+</html>
